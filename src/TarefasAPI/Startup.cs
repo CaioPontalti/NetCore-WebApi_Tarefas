@@ -32,10 +32,6 @@ namespace TarefasAPI
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            //TESTE
-
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
