@@ -10,6 +10,6 @@ namespace TarefasAPI.Interfaces
     {
         Task<ApplicationUser> Obter(string email, string senha);
 
-        Task Cadastrar(ApplicationUser applicationUser, string senha);
+        Task<dynamic> Cadastrar(ApplicationUser applicationUser, string senha);
     }
 }

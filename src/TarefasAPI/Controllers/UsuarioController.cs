@@ -26,6 +26,7 @@ namespace TarefasAPI.Controllers
             _userManager = userManager;
         }
 
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UsuarioDTO usuarioDTO)
         {
             ModelState.Remove("Nome");
@@ -49,24 +50,26 @@ namespace TarefasAPI.Controllers
             }
         }
 
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Cadastrar ([FromBody] UsuarioDTO usuario)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser();
                 user.FullName = usuario.Nome;
+                user.UserName = usuario.Email;
                 user.Email = usuario.Email; ;
-                var result = await _userManager.CreateAsync(user);
+                var result = await _usuarioRepositorio.Cadastrar(user, usuario.Password);
 
-                if (result.Succeeded)
+                if (result.status == true)
                 {
-                    return Ok(usuario);
+                    return Ok();
                 }
                 else 
                 {
                     List<string> Erros = new List<string>();
-                    foreach (var item in result.Errors)
-                        Erros.Add(item.Description);
+                    foreach (var erro in result.retorno)
+                        Erros.Add(erro.Description);
 
                     return UnprocessableEntity(Erros);
                 }    

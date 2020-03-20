@@ -20,7 +20,7 @@ namespace TarefasAPI.DTO
         public string Password { get; set; }
         
         [Required]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Os campo de Password e ConfirPassword não estão iguais.")]
         public string ConfirPassword { get; set; }
     }
 }

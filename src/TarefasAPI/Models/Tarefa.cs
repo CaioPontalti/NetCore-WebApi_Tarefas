@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace TarefasAPI.Models
@@ -43,6 +44,7 @@ namespace TarefasAPI.Models
         [ForeignKey("Usuario")]
         public string UsuarioId { get; set; }
 
+        [IgnoreDataMember]
         public virtual ApplicationUser Usuario { get; set; }
     }
 }

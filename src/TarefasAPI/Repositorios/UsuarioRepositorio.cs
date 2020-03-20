@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,14 @@ namespace TarefasAPI.Repositorios
                 return new ApplicationUser();
 
         }
-        public async Task Cadastrar(ApplicationUser applicationUser, string senha)
+
+        public async Task<dynamic> Cadastrar(ApplicationUser applicationUser, string senha)
         {
             var result =  await _userManager.CreateAsync(applicationUser, senha);
-            if (!result.Succeeded)
-            {
-                foreach (var item in result.Errors)
-                {
-
-                }
-            }
+            if (result.Succeeded)
+                return new { status = true, retorno = applicationUser };
+            else
+                return new { status = false, retorno = result.Errors };
         }        
     }
 }

@@ -36,16 +36,17 @@ namespace TarefasAPI.Repositorios
 
         public async Task<List<Tarefa>> Sincronizar(List<Tarefa> tarefas)
         {
-            var novasTarefas = tarefas.Where(t => t.IdTarefaApi == 0);
+            var novasTarefas = tarefas.Where(t => t.IdTarefaApi == 0).ToList();
+            var tarefasAtualizadasExcluidas = tarefas.Where(t => t.IdTarefaApi != 0).ToList();
+            
             if (novasTarefas.Count() > 0)
             {
                 foreach (var tarefa in novasTarefas)
                 {
-                     await _context.Tarefas.AddAsync(tarefa);
+                    await _context.Tarefas.AddAsync(tarefa);
                 }
             }
 
-            var tarefasAtualizadasExcluidas = tarefas.Where(t => t.IdTarefaApi != 0);
             if (tarefasAtualizadasExcluidas.Count() > 0)
             {
                 foreach (var tarefa in tarefasAtualizadasExcluidas)
