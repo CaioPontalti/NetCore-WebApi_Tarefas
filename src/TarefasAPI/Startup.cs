@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TarefasAPI.Database;
+using TarefasAPI.Interfaces;
+using TarefasAPI.Repositorios;
 
 namespace TarefasAPI
 {
@@ -30,6 +32,9 @@ namespace TarefasAPI
             {
                 opt.UseSqlServer(_configuration.GetConnectionString("conn"));
             });
+
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

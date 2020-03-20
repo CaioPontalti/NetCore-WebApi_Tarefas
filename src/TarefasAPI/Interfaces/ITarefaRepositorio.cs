@@ -8,8 +8,8 @@ namespace TarefasAPI.Interfaces
 {
     public interface ITarefaRepositorio
     {
-        Task Sincronizar(List<Tarefa> tarefas);
+        Task<List<Tarefa>> Sincronizar(List<Tarefa> tarefas);
 
-        Task<List<Tarefa>> Restaurar(DateTime dataUltimaSincronizacao);
+        Task<List<Tarefa>> Restaurar(ApplicationUser applicationUser, DateTime dataUltimaSincronizacao);
     }
 }
